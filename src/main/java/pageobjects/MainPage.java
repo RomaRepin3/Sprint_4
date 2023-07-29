@@ -12,11 +12,21 @@ public class MainPage {
 
     private final WebDriver driver;
 
+    // верхняя кнопка "Заказать"
+    private final By upperOrderButton = By.cssSelector(".Header_Nav__AGCXC > .Button_Button__ra12g");
+
     // изображение самокаката
     private final By scooterImage = By.cssSelector(".Home_Scooter__3YdJy img");
 
+    // нижняя кнопка "Заказать"
+    private final By lowerOrderButton = By.cssSelector(".Home_FinishButton__1_cWm > .Button_Button__ra12g");
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void clickUpperOrderButton() {
+        driver.findElement(upperOrderButton).click();
     }
 
     // надпись вопроса в блоке "Вопросы о важном"
@@ -58,5 +68,13 @@ public class MainPage {
     public void clickQuestionAndCheckAnswer(String question, String answer) {
         clickFaqQuestion(question);
         checkFaqAnswer(answer);
+    }
+
+    public void clickLowerOrderButton() {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView();",
+                driver.findElement(lowerOrderButton)
+        );
+        driver.findElement(lowerOrderButton).click();
     }
 }

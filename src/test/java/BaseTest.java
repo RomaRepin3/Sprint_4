@@ -11,6 +11,7 @@ public class BaseTest {
     public void setUp() {
         driver = new ChromeDriver();
         //driver = new FirefoxDriver();
+        driver.manage().window().maximize();
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
