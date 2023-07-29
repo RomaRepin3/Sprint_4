@@ -1,17 +1,9 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class MainPage {
-
-    private final WebDriver driver;
-
+public class MainPage extends BasePage {
     // верхняя кнопка "Заказать"
     private final By upperOrderButton = By.cssSelector(".Header_Nav__AGCXC > .Button_Button__ra12g");
 
@@ -22,7 +14,7 @@ public class MainPage {
     private final By lowerOrderButton = By.cssSelector(".Home_FinishButton__1_cWm > .Button_Button__ra12g");
 
     public MainPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void clickUpperOrderButton() {
@@ -42,27 +34,18 @@ public class MainPage {
     }
 
     public void waitForLoadMainPage() {
-        new WebDriverWait(
-                driver,
-                Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfElementLocated(scooterImage)
-        );
+        waitPresenceOfElementLocated(scooterImage);
     }
 
     public void clickFaqQuestion(String faqQuestionText) {
         final By faqQuestion = faqQuestion(faqQuestionText);
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView();",
-                driver.findElement(faqQuestion)
-        );
+        scrollIntoViewElement(faqQuestion);
         driver.findElement(faqQuestion).click();
     }
 
     public void checkFaqAnswer(String faqAnswerText) {
         final By faqAnswer = faqAnswer(faqAnswerText);
-        new WebDriverWait(
-                driver,
-                Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfElementLocated(faqAnswer)
-        );
+        waitPresenceOfElementLocated(faqAnswer);
     }
 
     public void clickQuestionAndCheckAnswer(String question, String answer) {
@@ -71,10 +54,7 @@ public class MainPage {
     }
 
     public void clickLowerOrderButton() {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView();",
-                driver.findElement(lowerOrderButton)
-        );
+        scrollIntoViewElement(lowerOrderButton);
         driver.findElement(lowerOrderButton).click();
     }
 }

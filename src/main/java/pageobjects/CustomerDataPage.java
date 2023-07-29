@@ -1,13 +1,9 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-public class CustomerDataPage {
-
-    private final WebDriver driver;
-
+public class CustomerDataPage extends BasePage {
     // поле "Имя"
     private final By nameField = By.cssSelector(".Order_Form__17u6u > .Input_InputContainer__3NykH:nth-child(1) input");
 
@@ -27,7 +23,7 @@ public class CustomerDataPage {
     private final By continueButton = By.cssSelector(".Order_Content__bmtHS .Button_Button__ra12g");
 
     public CustomerDataPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     // метод для формирования селектора выбора станции метро в выпадающем списке
@@ -51,7 +47,7 @@ public class CustomerDataPage {
 
     public void selectMetroStation(String metroStationName) {
         driver.findElement(metroStationField).click();
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(metroStationDropdownListPoint(metroStationName)));
+        scrollIntoViewElement(metroStationDropdownListPoint(metroStationName));
         driver.findElement(metroStationDropdownListPoint(metroStationName)).click();
     }
 
@@ -60,7 +56,7 @@ public class CustomerDataPage {
     }
 
     public void clickContinueButton() {
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(continueButton));
+        scrollIntoViewElement(continueButton);
         driver.findElement(continueButton).click();
     }
 

@@ -2,14 +2,8 @@ package pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class ConfirmFormPage {
-    private final WebDriver driver;
-
+public class ConfirmFormPage extends BasePage {
     // надпись "Хотите оформить заказ?"
     private final By wantPlaceOrderLabel = By.xpath("//div[text()='Хотите оформить заказ?']");
 
@@ -17,14 +11,11 @@ public class ConfirmFormPage {
     private final By yesButton = By.xpath("//button[text()='Да']");
 
     public ConfirmFormPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void waitForLoadConfirmFormPage() {
-        new WebDriverWait(
-                driver,
-                Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfElementLocated(wantPlaceOrderLabel)
-        );
+        waitPresenceOfElementLocated(wantPlaceOrderLabel);
     }
 
     public void clickYesButton() {
